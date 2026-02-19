@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 Kanban Board - Trello Clone</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>📋 Kanban Board</h1>
+        <div class="header-actions">
+            
+            <input type="text" id="searchCards" placeholder="🔍 Search cards..." class="search-input">
+            <select id="filterPriority" class="filter-select">
+                <option value="all">All Priorities</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            <button class="btn-clear-board" id="clearBoard">🗑️ Clear All</button>
+            <button class="btn-add-list" id="addListBtn">+ Add List</button>
+        </div>
+    </header>
+
+    <main class="board" id="board"></main>
+
+    <div class="modal" id="cardModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="modalTitle">Add New Card</h2>
+            <input type="text" id="cardTitle" placeholder="Card Title" required>
+            <textarea id="cardDescription" placeholder="Description (optional)"></textarea>
+            <input type="date" id="cardDueDate">
+            <select id="cardPriority">
+                <option value="low">Low Priority</option>
+                <option value="medium" selected>Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+            <input type="text" id="cardAssignee" placeholder="Assignee (optional)">
+            <div class="label-section">
+                <label>Labels:</label>
+                <div class="label-options">
+                    <label><input type="checkbox" value="bug" class="label-check"> 🐛 Bug</label>
+                    <label><input type="checkbox" value="feature" class="label-check"> ✨ Feature</label>
+                    <label><input type="checkbox" value="urgent" class="label-check"> 🔥 Urgent</label>
+                </div>
+            </div>
+            <button class="btn-save" id="saveCard">Save Card</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

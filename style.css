@@ -1,0 +1,505 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0079bf, #5067c5);
+    min-height: 100vh;
+}
+
+.header {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn-analytics {
+    background: rgba(97, 189, 79, 0.9);
+    color: white;
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-analytics:hover {
+    background: rgba(97, 189, 79, 1);
+    transform: translateY(-2px);
+}
+
+.search-input {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    min-width: 200px;
+}
+
+.filter-select {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-clear-board {
+    background: rgba(235, 90, 70, 0.9);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-clear-board:hover {
+    background: rgba(235, 90, 70, 1);
+    transform: translateY(-2px);
+}
+
+.header h1 {
+    color: white;
+    font-size: 1.8rem;
+}
+
+.btn-add-list {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.btn-add-list:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.board {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    overflow-x: auto;
+    min-height: calc(100vh - 80px);
+}
+
+.list {
+    background: #ebecf0;
+    border-radius: 8px;
+    min-width: 280px;
+    max-width: 280px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 120px);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.list-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #172b4d;
+    outline: none;
+    padding: 0.3rem;
+    border-radius: 4px;
+    flex: 1;
+}
+
+.list-title:focus {
+    background: white;
+}
+
+.list-delete {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #6b778c;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.list-delete:hover {
+    background: #dfe1e6;
+    color: #172b4d;
+}
+
+.cards {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.2rem;
+    min-height: 50px;
+}
+
+.card {
+    background: white;
+    border-radius: 6px;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    cursor: grab;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    position: relative;
+}
+
+.card.hidden {
+    display: none;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.card.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+.card-title {
+    font-weight: 600;
+    color: #172b4d;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.85rem;
+    color: #5e6c84;
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.card-assignee {
+    background: #0079bf;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.card-labels {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.card-label {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.label-bug {
+    background: #eb5a46;
+    color: white;
+}
+
+.label-feature {
+    background: #61bd4f;
+    color: white;
+}
+
+.label-urgent {
+    background: #ff9f1a;
+    color: white;
+}
+
+.card-edit {
+    position: absolute;
+    top: 0.5rem;
+    right: 2rem;
+    background: #0079bf;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.card:hover .card-edit {
+    opacity: 1;
+}
+
+.card-due {
+    background: #f4f5f7;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    color: #172b4d;
+}
+
+.card-priority {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+}
+
+.priority-low {
+    background: #61bd4f;
+}
+
+.priority-medium {
+    background: #f2d600;
+    color: #172b4d;
+}
+
+.priority-high {
+    background: #eb5a46;
+}
+
+.card-delete {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #eb5a46;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.card:hover .card-delete {
+    opacity: 1;
+}
+
+.btn-add-card {
+    background: transparent;
+    border: none;
+    color: #5e6c84;
+    padding: 0.7rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-add-card:hover {
+    background: #dfe1e6;
+    color: #172b4d;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    float: right;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #6b778c;
+}
+
+.modal-close:hover {
+    color: #172b4d;
+}
+
+.modal-content h2 {
+    margin-bottom: 1.5rem;
+    color: #172b4d;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 2px solid #dfe1e6;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.label-section {
+    margin-bottom: 1rem;
+}
+
+.label-section label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #172b4d;
+    font-weight: 600;
+}
+
+.label-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.label-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.label-check {
+    width: auto;
+    margin: 0;
+}
+
+.modal-content textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+    outline: none;
+    border-color: #0079bf;
+}
+
+.btn-save {
+    background: #0079bf;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.btn-save:hover {
+    background: #026aa7;
+    transform: translateY(-2px);
+}
+
+.drag-over {
+    background: #dfe1e6;
+    border: 2px dashed #0079bf;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .board {
+        padding: 1rem;
+    }
+    
+    .list {
+        min-width: 260px;
+        max-width: 260px;
+    }
+}
